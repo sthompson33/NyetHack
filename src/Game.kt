@@ -1,4 +1,4 @@
-//comment to test git
+//comment to test git received and reciprocated
 fun main(args: Array<String>) {
     val name = "Madrigal"
     var healthPoints = 89
