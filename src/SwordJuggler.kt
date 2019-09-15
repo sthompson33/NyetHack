@@ -1,3 +1,4 @@
+import java.lang.Exception
 import java.lang.IllegalStateException
 
 fun main(args: Array<String>) {
@@ -7,13 +8,19 @@ fun main(args: Array<String>) {
         swordsJuggling = 2
     }
 
-    proficiencyCheck(swordsJuggling)
-    swordsJuggling = swordsJuggling!!.plus(1)
+    try {
+        proficiencyCheck(swordsJuggling)
+        swordsJuggling = swordsJuggling!!.plus(1)
+    } catch (e: Exception){
+        println(e)
+    }
+
     println("You juggle $swordsJuggling swords!")
 }
 
 fun proficiencyCheck(swordsJuggling: Int?){
-    swordsJuggling ?: throw UnskilledSwordJugglerException()
+    checkNotNull(swordsJuggling, {"Player cannot juggle swords"})
 }
 
+//a custom made exception class that inherits from IllegalStateException
 class UnskilledSwordJugglerException(): IllegalStateException("Player cannot juggle swords")
