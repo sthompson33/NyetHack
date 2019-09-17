@@ -1,7 +1,34 @@
+import kotlin.math.roundToInt
+
 const val TAVERN_NAME = "Taernyl's Folly"
+
+var playerGold = 10
+var playerSilver = 10
 
 fun main() {
     placeOrder("shandy,Dragon's Breath,5.91")
+}
+
+private fun performPurchase(price: Double){
+    displayBalance()
+    val totalPurse = playerGold + (playerSilver / 100.0)
+    println("Total purse: $totalPurse")
+    println("Purchasing item for $price")
+
+    val remainingBalance = totalPurse - price
+    //when printing to the console, remainingBalance is formatted to two decimals 4.19
+    //however, remainingBalance still has the floating point value
+    println("Remaining balance: ${"%.2f".format(remainingBalance)}")
+
+    val remainingGold = remainingBalance.toInt()
+    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
+    playerGold = remainingGold
+    playerSilver = remainingSilver
+    displayBalance()
+}
+
+private fun displayBalance(){
+    println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
 }
 
 private fun toDragonSpeak(phrase: String) =
@@ -16,6 +43,14 @@ private fun toDragonSpeak(phrase: String) =
         }
     }
 
+private fun performPour(name: String, numPours: Int){
+    var dragonsBreathCask = 5.0
+    var numPints = numPours  * .125
+    println("The Tavern Master pours $numPours pint(s) of $name")
+    var gallonsLeft = dragonsBreathCask - numPints
+    println("The amount left in $name cask is $gallonsLeft gallons.")
+}
+
 private fun placeOrder(menuData: String){
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
     val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
@@ -24,6 +59,9 @@ private fun placeOrder(menuData: String){
     val (type, name, price) = menuData.split(',')
     val message = "Madrigal buys a $name ($type) for $price"
     println(message)
+
+    performPurchase(price.toDouble())
+    performPour(name, 17)
 
     val phrase = if (name == "Dragon's Breath") {
         "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name")}"
