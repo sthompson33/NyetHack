@@ -17,6 +17,7 @@ private fun performPurchase(price: Double){
     println("Purchasing item for $price")
 
     val remainingBalance = totalPurse - price
+    require(remainingBalance >= 0) { "Not enough funds" }
     //when printing to the console, remainingBalance is formatted to two decimals 4.19
     //however, remainingBalance still has the floating point value
     println("Remaining balance: ${"%.2f".format(remainingBalance)}")
@@ -57,17 +58,20 @@ private fun placeOrder(menuData: String){
     println("Madrigal speaks with $tavernMaster about their order.")
 
     val (type, name, price) = menuData.split(',')
-    val message = "Madrigal buys a $name ($type) for $price"
-    println(message)
+    try {
+        performPurchase(price.toDouble())
+        val message = "Madrigal buys a $name ($type) for $price"
+        println(message)
+        performPour(name, 1)
 
-    performPurchase(price.toDouble())
-    performPour(name, 1)
-
-    val phrase = if (name == "Dragon's Breath") {
-        "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name")}"
-    } else {
-        "Madrigal says: Thanks for the $name"
+        val phrase = if (name == "Dragon's Breath") {
+            "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name")}"
+        } else {
+            "Madrigal says: Thanks for the $name"
+        }
+        println(phrase)
+    } catch (e: IllegalArgumentException) {
+        println("Madrigal does not have enough funds for this purchase.")
     }
-    println(phrase)
 }
 
