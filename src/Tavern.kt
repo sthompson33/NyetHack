@@ -12,6 +12,7 @@ fun main() {
 private fun performPurchase(price: Double){
     displayBalance()
     val totalPurse = playerGold + (playerSilver / 100.0)
+
     println("Total purse: $totalPurse")
     println("Purchasing item for $price")
 
@@ -43,12 +44,11 @@ private fun toDragonSpeak(phrase: String) =
         }
     }
 
-private fun performPour(name: String, numPours: Int){
-    var dragonsBreathCask = 5.0
-    var numPints = numPours  * .125
-    println("The Tavern Master pours $numPours pint(s) of $name")
-    var gallonsLeft = dragonsBreathCask - numPints
-    println("The amount left in $name cask is $gallonsLeft gallons.")
+private fun performPour(name: String, numPints: Int){
+    var dragonsBreathCask = 5.0 //gallons
+    println("The Tavern Master pours $numPints pint(s) of $name")
+    var pintsLeft = (dragonsBreathCask - (numPints * .125)) / .125
+    println("${pintsLeft.toInt()} pints left of $name.")
 }
 
 private fun placeOrder(menuData: String){
@@ -61,7 +61,7 @@ private fun placeOrder(menuData: String){
     println(message)
 
     performPurchase(price.toDouble())
-    performPour(name, 17)
+    performPour(name, 1)
 
     val phrase = if (name == "Dragon's Breath") {
         "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name")}"
