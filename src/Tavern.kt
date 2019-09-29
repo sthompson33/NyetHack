@@ -1,12 +1,18 @@
 import kotlin.math.roundToInt
+import java.io.File
 
 const val TAVERN_NAME = "Taernyl's Folly"
 
 var playerGold = 10
 var playerSilver = 10
+val patronList = mutableListOf("Eli", "Mordoc", "Sophie")
+val menuList = File("data/tavern-menu-items.txt").readText().split("\n")
 
 fun main() {
-    placeOrder("shandy,Dragon's Breath,5.91")
+    patronList.forEachIndexed {index, patron -> println("Good evening, $patron - you're #${index + 1} in line.")
+    placeOrder(patron, menuList.shuffled().first())}
+
+    menuList.forEachIndexed {index, data -> println("$index : $data")}
 }
 
 private fun performPurchase(price: Double){
@@ -45,33 +51,22 @@ private fun toDragonSpeak(phrase: String) =
         }
     }
 
-private fun performPour(name: String, numPints: Int){
-    var dragonsBreathCask = 5.0 //gallons
-    println("The Tavern Master pours $numPints pint(s) of $name")
-    var pintsLeft = (dragonsBreathCask - (numPints * .125)) / .125
-    println("${pintsLeft.toInt()} pints left of $name.")
-}
-
-private fun placeOrder(menuData: String){
+private fun placeOrder(patronName: String, menuData: String){
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
     val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
-    println("Madrigal speaks with $tavernMaster about their order.")
+    println("$patronName speaks with $tavernMaster about their order.")
 
     val (type, name, price) = menuData.split(',')
-    try {
-        performPurchase(price.toDouble())
-        val message = "Madrigal buys a $name ($type) for $price"
-        println(message)
-        performPour(name, 1)
+    val message = "$patronName buys a $name ($type) for $price"
+    println(message)
 
-        val phrase = if (name == "Dragon's Breath") {
-            "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name")}"
-        } else {
-            "Madrigal says: Thanks for the $name"
-        }
-        println(phrase)
-    } catch (e: IllegalArgumentException) {
-        println("Madrigal does not have enough funds for this purchase.")
+    //performPurchase(price.toDouble())
+
+    val phrase = if (name == "Dragon's Breath") {
+        "$patronName exclaims: ${toDragonSpeak("Ah, delicious $name")}"
+    } else {
+        "$patronName says: Thanks for the $name"
     }
+    println(phrase)
 }
 
