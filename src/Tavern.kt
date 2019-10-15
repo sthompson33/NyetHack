@@ -1,4 +1,3 @@
-import kotlin.math.roundToInt
 import java.io.File
 
 const val TAVERN_NAME = "Taernyl's Folly"
@@ -6,8 +5,6 @@ const val TAVERN_NAME = "Taernyl's Folly"
 val patronList = mutableListOf("Eli", "Mordoc", "Sophie")
 val lastName = listOf("Ironfoot", "Fernsworth", "Baggins")
 val uniquePatrons = mutableSetOf<String>()
-//changed reading a file to readLines().
-//previous readText().split("\n) threw indexOutOfBoundsException because end of file line (blank) was included
 val menuList = File("data/tavern-menu-items.txt").readLines()
 val patronGold = mutableMapOf<String, Double>()
 
