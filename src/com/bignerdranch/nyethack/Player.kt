@@ -1,15 +1,11 @@
 package com.bignerdranch.nyethack
 
-class Player {
-    var name = "madrigal"
+class Player (_name: String, var healthPoints: Int, val isBlessed: Boolean, private val isImmortal: Boolean) {
+    var name = _name
         get() = field.capitalize()
         private set(value) {
             field = value.trim()
         }
-
-    var healthPoints = 89
-    val isBlessed = true
-    private val isImmortal = false
 
     fun auraColor(): String {
         val auraVisible = isBlessed && healthPoints > 50 || isImmortal
