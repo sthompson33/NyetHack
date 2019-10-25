@@ -1,7 +1,7 @@
 package com.bignerdranch.nyethack
 
 fun main(args: Array<String>) {
-    val player = Player("madrigal", 89, true, false)
+    val player = Player("madrigal")
     player.castFireball()
 
     //Aura
