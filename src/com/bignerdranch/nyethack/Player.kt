@@ -40,7 +40,7 @@ class Player (_name: String, var healthPoints: Int = 100, val isBlessed: Boolean
         }
 
     fun castFireball(numFireballs: Int = 2) =
-        println("A glass of Fireball springs into existence. (x$numFireballs)")
+        println("A glass of Fireball springs into existence. Delicious! (x$numFireballs)")
 
     private fun selectHometown() = File("data/towns.txt").readLines().shuffled().first()
 }

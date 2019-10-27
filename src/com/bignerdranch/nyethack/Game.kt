@@ -4,8 +4,9 @@ fun main(args: Array<String>) {
     val player = Player("madrigal")
     player.castFireball()
 
-    //Aura
-    val auraColor = player.auraColor()
+    val currentRoom: Room = TownSquare()
+    println(currentRoom.description())
+    println(currentRoom.load())
 
     //Player status
     printPlayerStatus(player)
