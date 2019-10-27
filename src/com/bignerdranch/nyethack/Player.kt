@@ -9,7 +9,7 @@ class Player (_name: String, var healthPoints: Int = 100, val isBlessed: Boolean
             field = value.trim()
         }
 
-    val hometown = selectHometown()
+    val hometown by lazy {selectHometown()}
 
     init {
         require(healthPoints > 0, {"healthpoints must be greater than zero."})
