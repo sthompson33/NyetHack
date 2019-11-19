@@ -12,8 +12,8 @@ class Player (_name: String, var healthPoints: Int = 100, val isBlessed: Boolean
     val hometown by lazy {selectHometown()}
 
     init {
-        require(healthPoints > 0, {"healthpoints must be greater than zero."})
-        require(name.isNotBlank(), {"Player must have a name."})
+        require(healthPoints > 0) {"health points must be greater than zero."}
+        require(name.isNotBlank()) {"Player must have a name."}
     }
 
     constructor(name: String) : this(name, isBlessed = true, isImmortal = false) {
